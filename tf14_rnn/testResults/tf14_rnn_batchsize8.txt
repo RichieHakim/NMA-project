@@ -1,0 +1,295 @@
+(tf1bci) PS D:\Mhu\SourceCode\bci\handwritingBCI_tf1> python .\tf14_printTestErrAcc.py
+-- t5.2019.05.08 --
+Character error rate for this session: 3.46%
+Below is the decoder output for all validation sentences in this session:
+
+#2:
+True:    you want me to sing?
+Decoded:  you want me to sing?
+
+#5:
+True:    have you ever seen a large cat fold itself into a tiny shoe box?
+Decoded: nave you ever seen a large cat fold itself into at tiny shoe box?
+
+#21:
+True:    the jeep was thirsty so i stopped for gas on the edge of town.
+Decoded: the jeep was thirsty so i sfopped for gas on the edge of tomn.
+
+#33:
+True:    because less than a quarter mile from where i'm standing right now is where alla's body was dumped.
+Decoded: pecause less than a quarter mle frrom where i'm standing right now is where alla?s body waas dumped.
+
+#34:
+True:    there are moments when gentle background singing brings the song close to gospel.
+Decoded: cthere are moments when gentle  eckground singing brings the song closeto gospel.
+
+#39:
+True:    so you could literally see here's what every single person in the company gets paid.
+Decoded: so you coud literally see here's what eevery single person in the comphny gets paid.
+
+#54:
+True:    i told you we were going to bring this sucker home, and we brought it home.
+Decoded: i told you wwe were going to bring this sucker home, and we brought it home.
+
+#90:
+True:    what rent do you pay for your housing?
+Decoded: what rent do you pay for your housing?
+
+#91:
+True:    plainly, there is a clear and present need to secure information in the public and private sectors.
+Decoded: phainly,, there is a clear andpresent need to secure information in the public and private sectors.
+
+#98:
+True:    i thought i could fix it but got trapped by my ego and refusal to fail.
+Decoded: i thousht i could ff it but got trapped by my ego and refusal to fail.
+
+-- t5.2019.11.25 --
+Character error rate for this session: 3.51%
+Below is the decoder output for all validation sentences in this session:
+
+#5:
+True:    then it wobbled under her weight and tilted forwards.
+Decoded: then it wobbled under her weight and tilted forwards.
+
+#21:
+True:    and my brother's in hong kong all that week.
+Decoded: and hyryrother's in hong kong all that week.
+
+#31:
+True:    then we slipped into the kitchen , got up on the sink, and hauled ourselves into the little attic.
+Decoded: then we slipped into the kitchen , got up on the sink, and hacled ourselves into the little attie.
+
+#33:
+True:    he didn't like being tied up to the women.
+Decoded: he didnt like being tied up to the women.
+
+#34:
+True:    you can rent money.
+Decoded: you can rent money.
+
+#39:
+True:    the only peace that you'll find here lies in a kind of pagan solitude.
+Decoded: the only peace that youll find here lies in a kind of pagan solltude.
+
+#61:
+True:    his pot was in his hand still, it preceded him like the torch of justice.
+Decoded: his pot was in his hand still, ifireceded lm like the torch of jostice.
+
+-- t5.2019.12.09 --
+Character error rate for this session: 1.93%
+Below is the decoder output for all validation sentences in this session:
+
+#5:
+True:    maybe get your horses to swim across.
+Decoded: maiibe get your horses to swim across.
+
+#21:
+True:    i thought they were staying the night.
+Decoded: i thought they were staying the night.
+
+#31:
+True:    it seemed a poor thing to have descended to.
+Decoded: tt seemed a poor thing to have descended to.
+
+#33:
+True:    his sudden talk of alibis made the whole thing sound serious.
+Decoded: uhis sudden tolk of alipis made the whole thing sound serious.
+
+#34:
+True:    is the policy still to sit it out and wait rather than try and force your way into the prison?
+Decoded: is the bolicy still to sit it out and wait rather than try and force your way into the prison?
+
+#39:
+True:    i accept that it precludes class a development.
+Decoded: i accept that it precludes class a development.
+
+#68:
+True:    at that moment she heard rapid footsteps.
+Decoded: at that moment she heard rapid footsteps.
+
+-- t5.2019.12.11 --
+Character error rate for this session: 1.09%
+Below is the decoder output for all validation sentences in this session:
+
+#5:
+True:    but i have to hear the whole tale.
+Decoded: put i have to hear the whole tale.
+
+#21:
+True:    this fuzzy, probabilistic approach is a sensible one.
+Decoded: this fuzzy, probabilistic approach is a sensible one.
+
+#31:
+True:    he needed to develop his mind.
+Decoded: pe needed to develop his mind.
+
+#33:
+True:    people here are also adopting a healthier diet.
+Decoded: people here are also adopting a healthier diet.
+
+#34:
+True:    the royal navy had left its mark.
+Decoded: the royal navy had left its mark.
+
+#39:
+True:    a long shower relaxed her still further.
+Decoded: a long shower relayed her still further.
+
+#61:
+True:    thrown in nuts and carrots and blend.
+Decoded: thrown in nuts and carrots and blend.
+
+-- t5.2019.12.18 --
+Character error rate for this session: 2.21%
+Below is the decoder output for all validation sentences in this session:
+
+#5:
+True:    he lifted his hand out of the water to smooth his hair.
+Decoded: he lifted his hard out of the water to smooth his hair.
+
+#21:
+True:    the servants would know whether it was possible to get back down the valley.
+Decoded: the seruants would know whether it was possiple to get back down the valley.
+
+#31:
+True:    why are you prepared to play such a desperate game, to put your whole future in jeopardy like this?
+Decoded: why are you prepared to play such adeaperate game, to put your whole future in jeopardy like this?
+
+#33:
+True:    you had round red cheeks, just like a wooden doll.
+Decoded: you had round red cheeks, just like a wooden doll.
+
+#34:
+True:    i have seven apples, seven oranges and seven bananas.
+Decoded: i have sever apples, seven oranges and seven banaras.
+
+#39:
+True:    grumpy wizards make a toxic brew for the jovial queen.
+Decoded: grumpy wizards make a toxic brew for the jovicl queen.
+
+#61:
+True:    he reckons his success on the field depends on learning the lingo.
+Decoded: ne reckons his success on the fielddepends on learning the lingo.
+
+-- t5.2019.12.20 --
+Character error rate for this session: 1.07%
+Below is the decoder output for all validation sentences in this session:
+
+#5:
+True:    i'm not tough enough to toe the line.
+Decoded: i'm not touugh enough to toe the line.
+
+#21:
+True:    a lot of old folk are getting caught and we must stamp it out.
+Decoded: a lot of old folk are getting caught and we must stamp it out.
+
+#31:
+True:    these agents are now being tested in clinical trials with people at risk.
+Decoded: these agents are now being tested in clinical trials with people at risk.
+
+#33:
+True:    the way he said it made the name sound like orchids and honey.
+Decoded: the way he said it made the name sound like orchids and horey.
+
+#34:
+True:    pack my box with five dozen liquor jugs.
+Decoded: pack my box with five dozen liquor jugs.
+
+#39:
+True:    state officials are always under threat, always being kidnapped.
+Decoded: state officials are always under threat, always being lidnapped.
+
+#61:
+True:    that's when i threw up on the carpet.
+Decoded: that's whenn i threw up on the carpet.
+
+-- t5.2020.01.06 --
+Character error rate for this session: 5.13%
+Below is the decoder output for all validation sentences in this session:
+
+#5:
+True:    they breathe air and they cannot swim.
+Decoded: they breathe air and they carrot swim.
+
+#21:
+True:    from the terrace, a broad flight of central steps led down to lawns and formal flowerbeds.
+Decoded: from the terroce, a prad flight of eentral stebs led dowwn to lawns and formal flowerbeds.
+
+#31:
+True:    the corpses lay uncovered in the open on plastic sheets.
+Decoded: the corpses loy urcovered in the oper on plastic sheeets.
+
+#39:
+True:    shame on us for not caring.
+Decoded: shame on us for not caring.
+
+#61:
+True:    the other battalions were infected by the panic and also fled.
+Decoded: the other battalions were infected sythe panic and also fled.
+
+-- t5.2020.01.08 --
+Character error rate for this session: 2.84%
+Below is the decoder output for all validation sentences in this session:
+
+#5:
+True:    on the eve of the council the worst of horrors was revealed.
+Decoded: on the eve of  the council the worsst of horrons was revealed.
+
+#21:
+True:    a small coal fire burned in the grate.
+Decoded: aa small coal fire burned in the grate.
+
+#31:
+True:    the result is a lighter weight fabric, but one which still shows off the yarn.
+Decoded: the result is a lighter weight fabric, but one whichh still shows off the yarn.
+
+#33:
+True:    perhaps they would accept his old currency.
+Decoded: perhaps they would accept his olld curreney.
+
+#34:
+True:    already the grass was becoming crisp with frost.
+Decoded: already the grass was becoming crisp with frost.
+
+#39:
+True:    it is the necessary foundation for growth of small businesses.
+Decoded: it is the necessary foundation forr growth of small businesses.
+
+#61:
+True:    celia constantly refers to her mother's drowning accident.
+Decoded: celia constantly refer to her mothers drowning acaident.
+
+-- t5.2020.01.13 --
+Character error rate for this session: 7.14%
+Below is the decoder output for all validation sentences in this session:
+
+#22:
+True:    crazy frederick bought many very exquisite opal jewels.
+Decoded: crazy frderick broought many very exquisite opal jewwels.
+
+#25:
+True:    sphinx of black quartz, judge my vow.
+Decoded: sphinn of black quarte,, udge my vow.
+
+#121:
+True:    residents were warned to prepare flood defences.
+Decoded: residents were warned to rrepare flod defences.
+
+-- t5.2020.01.15 --
+Character error rate for this session: 1.56%
+Below is the decoder output for all validation sentences in this session:
+
+#22:
+True:    imagine a star with a mass ten times that of the sun.
+Decoded: imagine a star with a mass ten times that of the sun.
+
+#25:
+True:    the elder boys are not deterred, however.
+Decoded: the alder boys ar not deterred, however.
+
+#121:
+True:    you never used to swear, you know.
+Decoded: you never used to swear, you know.
+
+Character error rate: 2.84%
+Word error rate: 13.48%
