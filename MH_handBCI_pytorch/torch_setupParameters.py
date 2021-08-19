@@ -88,11 +88,11 @@ def getDefaultRNNArgs(rootDir, cvPart, outputDir):
     args['whiteNoiseSD'] = 1.2
     
     #l2 regularization cost                             
-    args['l2scale'] = 1e-5 
+    args['l2scale'] = 1e-2  ##weight decay coefficient (default: 1e-2)
                                 
-    args['learnRateStart'] = 0.01
+    args['learnRateStart'] = 1e-1
     args['learnRateEnd'] = 0.0
-    
+    args['clip_grads'] = 64 ## clip graidents to a maxium value (10 from TF1.x model)
     #can optionally specify for only the input layers to train or only the back end                             
     args['trainableInput'] = 1
     args['trainableBackEnd'] = 1
@@ -107,7 +107,7 @@ def getDefaultRNNArgs(rootDir, cvPart, outputDir):
     args['batchesPerSave'] = 200 
                                  
     #how often to run a validation diagnostic batch                              
-    args['batchesPerVal'] = 50 
+    args['batchesPerVal'] = 10 
                                  
     #how often to save the model                             
     args['batchesPerModelSave'] = 5000 
@@ -116,14 +116,14 @@ def getDefaultRNNArgs(rootDir, cvPart, outputDir):
     args['nBatchesToTrain'] = 100000 
 
     #number of time steps to use in the minibatch (1200 = 24 seconds)                             
-    args['timeSteps'] = 1200 
+    args['timeSteps'] = 1200
                                  
     #number of sentence snippets to include in the minibatch 
-    args['batchSize'] = 8 
-    args['nMiniBatches'] = 4 ## we split each batch into 4 small batch to accumlate gradient and apply
+    args['batchSize'] = 32 
+    args['nMiniBatches'] = 5 ## we split each batch into 4 small batch to accumlate gradient and apply
                                 
     #how much of each minibatch is synthetic data                              
-    args['synthBatchSize'] = 3 ## set to zero to skip synthetic data.
+    args['synthBatchSize'] = 12 ## set to zero to skip synthetic data.
 
     #can be used to scale up all input features, sometimes useful when transferring to new days without retraining 
     args['inputScale'] = 1.0

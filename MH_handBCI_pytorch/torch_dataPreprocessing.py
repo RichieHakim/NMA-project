@@ -7,7 +7,7 @@ import glob
 import torch
 from torch.utils.data import Dataset
 import torch.nn.functional as F
-from tfrecord.torch.dataset import MultiTFRecordDataset
+from tfrecord.torch.dataset import TFRecordDataset, MultiTFRecordDataset
 from scipy.ndimage.filters import gaussian_filter1d
 
 def loadAllRealDatasets(args):
@@ -184,30 +184,27 @@ def gaussSmooth(inputs,kernelSD):
     Applies a 1D gaussian smoothing operation with tensorflow to smooth the data along the time axis.
     
     Args:
-        inputs (tensor : B x T x N): A 3d tensor with batch size B, time steps T, and number of features N
+        inputs (tensor : B x N x T): A 3d tensor with batch size B, time steps T, and number of channels N
         kernelSD (float): standard deviation of the Gaussian smoothing kernel
-        
+        ()
     Returns:
-        smoothedData (tensor : B x T x N): A smoothed 3d tensor with batch size B, time steps T, and number of features N
+        smoothedData (tensor : B x N x T): A smoothed 3d tensor with batch size B, time steps T, and number of channels N
     """
-    ## use Pytorch's functional API F.conv1d                             
-    #get gaussian smoothing kernel
+    ## use Pytorch's functional API F.conv1d for gaussian smoothing
     inp = np.zeros([100])
     inp[50] = 1
     gaussKernel = gaussian_filter1d(inp, kernelSD)
-
     validIdx = np.argwhere(gaussKernel>0.01)
     gaussKernel = gaussKernel[validIdx]
     gaussKernel = np.squeeze(gaussKernel/np.sum(gaussKernel))
     weights = torch.tensor(gaussKernel)
     weights = weights.view(1,1,len(weights)).repeat(inputs.shape[0], 1,1)
     #apply the convolution separately for each feature
-    convOut = np.zeros_like(inputs)
-    for x in range(inputs.shape[2]):
-        data = inputs[:,:,x]
-        data = torch.tensor(data[:,:,np.newaxis]).transpose(1,2)
-        output = F.conv1d(data, weights, padding='same', groups = 1)[:,0,:]
-        convOut[:,:,x] = output
+    convOut = torch.zeros_like(inputs)
+    for x in range(inputs.shape[1]):
+        data = torch.unsqueeze(inputs[:,x,:], 1)
+        output = F.conv1d(data.float().to('cuda'), weights.float().to('cuda'), padding='same', groups = 1)[:,0,:]
+        convOut[:,x,:] = output
     return convOut
 
 class handBCI_SythDataset(object):
@@ -219,13 +216,14 @@ class handBCI_SythDataset(object):
            tfrDir: tensorRecord file directory
            args: dictionary of all arguments
         """
-#         tfrDir=rootDir+'/Datasets/t5.2019.12.09/HeldOutTrials/t5.2019.12.09_syntheticSentences/'
         self.tfrecord_pattern = tfrDir+"{}.tfrecord"
         self.index_pattern = None
         tfrfilesNames = [f.split('\\')[-1] for f in glob.glob(tfrDir+'*.tfrecord')]
         self.splits = {}
         for tr in tfrfilesNames:
             self.splits[tr.split('.')[0]] = 1/len(tfrfilesNames)
+        # self.tfrfilesNames  = glob.glob(tfrDir+'*.tfrecord')
+        # print('using '+self.tfrecord )
         self.description =  {"inputs": "float", "labels": "float","errWeights":"float"}
         self.nSteps = args['timeSteps']
         self.nInputs = 192
@@ -240,12 +238,17 @@ class handBCI_SythDataset(object):
     def _shape_add_noise(self,features):
         ## transformations done for the data: reshape and add noise to input
         features["inputs"] = np.reshape(features["inputs"],(self.nSteps, self.nInputs))
-        features["labels"] = np.reshape(features["labels"],(self.nSteps, self.nClass))
+        # features["labels"] = np.reshape(features["labels"],(self.nSteps, self.nClass))
+        labels_ = np.reshape(features["labels"],(self.nSteps, self.nClass))
+        labels= np.zeros((labels_.shape[0], 2))
+        labels[:,0] = np.argmax(labels_[:,0:-1], axis = 1)
+        labels[:,1] = labels_[:,-1]
+        features["labels"] = labels
         noise = np.random.normal(0, self.whiteNoiseSD, size=(self.nSteps,self.nInputs))
         if self.constantOffsetSD > 0 or self.randomWalkSD > 0:
             trainNoise_mn = np.random.normal(0, self.constantOffsetSD, size = (1,self.nInputs))
             trainNoise_mn = np.tile(trainNoise_mn, (self.nSteps, 1))           
-            trainNoise_mn += np.cumsum(np.random.normal(0, randomWalkSD, size=(self.nSteps, self.nInputs)), axis=1)
+            trainNoise_mn += np.cumsum(np.random.normal(0, self.randomWalkSD, size=(self.nSteps, self.nInputs)), axis=1)
             noise += trainNoise_mn
   
         features["inputs"] += noise
@@ -254,7 +257,11 @@ class handBCI_SythDataset(object):
     def makeDataSet(self):
         dataset = MultiTFRecordDataset(self.tfrecord_pattern, index_pattern=self.index_pattern, splits=self.splits,\
                                       description = self.description,\
-                                      transform=self._shape_add_noise,infinite=False,shuffle_queue_size=256)
+                                      transform=self._shape_add_noise,infinite=False,shuffle_queue_size=32)
+        # tfrecord = tfrfilesNames[np.random.randint(len(tfrfilesNames))]
+        # dataset = TFRecordDataset(tfrecord, index_path=None,\
+        #                       description = self.description,\
+        #                       transform=self._shape_add_noise,shuffle_queue_size=64)                             
 
         return dataset
 
@@ -335,11 +342,33 @@ class handBCI_Dataset(Dataset):
         if torch.is_tensor(idx):
             idx = idx.tolist()
         setenceIdx = np.mod(idx, self.inputs.shape[0])
-        inputs, labels, ew, _ = self.extractSentenceSnippet(setenceIdx, self.inputs, self.targets,\
+        inputs, labels_, ew, _ = self.extractSentenceSnippet(setenceIdx, self.inputs, self.targets,\
                                                             self.errWeight, self.numBinsPerTrial,\
                                 self.nSteps, self.args['directionality'])            
         if self.addNoise:
             inputs = self._add_noise(inputs)
-
+        labels= np.zeros((labels_.shape[0], 2))
+        labels[:,0] = np.argmax(labels_[:, 0:-1], axis = 1) ## letter
+        labels[:,1] = labels_[:,-1] ## transit
         sample = {'inputs': inputs, 'labels': labels,'errWeights': ew} #,'numBinsPerTrial': nbpt
         return sample
+
+def combineSynthAndReal(synthIter, realIter):
+    if synthIter==[]:
+        synth_batch =  next(synthIter)
+        inp, targ, weight = synth_batch['inputs'], synth_batch['labels'],synth_batch['errWeights']
+    elif realIter==[]:
+        real_batch = next(realIter)
+        inp, targ, weight = next(realIter)
+    else:
+        real_batch = next(realIter)
+        inp_r, targ_r, weight_r = real_batch['inputs'], real_batch['labels'],real_batch['errWeights']
+
+        synth_batch =  next(synthIter)
+        inp_s, targ_s, weight_s = synth_batch['inputs'], synth_batch['labels'],synth_batch['errWeights']
+        
+        inp = torch.cat([inp_s, inp_r],axis=0)
+        targ = torch.cat([targ_s, targ_r],axis=0)
+        weight = torch.cat([weight_s, weight_r],axis=0)
+    
+    return inp, targ, weight
